@@ -1,7 +1,12 @@
 var licenseScanner = require('../lib/licenseScanner');
 
 var availableOptions = [{
-    name: 'production',
+    name: 'path',
+    type: String,
+    default: process.cwd(),
+    aliases: ['path'],
+    description: 'specifies which paths to explore'
+}, {name: 'production',
     type: Boolean,
     default: false,
     aliases: ['prod'],
@@ -11,6 +16,36 @@ var availableOptions = [{
     type: String,
     aliases: ['c'],
     description: 'supply additional info to override scanning result'
+}, {
+    name: 'npm',
+    type: Boolean,
+    default: true,
+    aliases: ['npm'],
+    description: 'if false, ignore npm dependencies'
+}, {
+    name: 'bower',
+    type: Boolean,
+    default: true,
+    aliases: ['bower'],
+    description: 'if false, ignore bower dependencies'
+}, {
+    name: 'directory',
+    type: String,
+    default: '../licenses',
+    aliases: ['directory'],
+    description: 'supply directory for saving license file'
+}, {
+    name: 'csv',
+    type: Boolean,
+    default: true,
+    aliases: ['csv'],
+    description: 'if false, do not generate a csv file'
+}, {
+    name: 'html',
+    type: Boolean,
+    default: true,
+    aliases: ['html'],
+    description: 'if false, do not generate a html file'
 }];
 
 module.exports = {
@@ -27,9 +62,14 @@ module.exports = {
     run: function (options, rawArgs) {
         const startTime = Date.now();
         return licenseScanner.init({
-            start: process.cwd(),
+            start: options.path,
             production: options.production,
-            config: options.config
+            config: options.config,
+            npm: options.npm,
+            bower: options.bower,
+            directory: options.directory,
+            csv: options.csv,
+            html: options.html
         }).then(function () {
             var diff = Date.now() - startTime;
             console.log(`Task finished in ${diff} milliseconds.`);
