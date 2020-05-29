@@ -21,7 +21,7 @@
     "bower-json": "^0.8.4",
     "ember-cli-babel": "^6.11.0",
     "ember-cli-htmlbars": "^1.0.10",
-    "license-checker": "^8.0.3",
+    "license-checker": "^19.0.0",
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.16",
     "rsvp": "^3.3.3",
